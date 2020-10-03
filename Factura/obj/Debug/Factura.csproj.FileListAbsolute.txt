@@ -12,3 +12,17 @@ C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\de\PdfSharp.Cha
 C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.csproj.CopyComplete
 C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.exe
 C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.pdb
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\obj\Debug\Factura.csprojAssemblyReference.cache
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\obj\Debug\Factura.csproj.CoreCompileInputs.cache
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\obj\Debug\Factura.exe
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\obj\Debug\Factura.pdb
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\Factura.exe.config
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\Factura.exe
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\Factura.pdb
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\PdfSharp.Charting.dll
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\PdfSharp.dll
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\PdfSharp.xml
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\PdfSharp.Charting.xml
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\de\PdfSharp.resources.dll
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\bin\Debug\de\PdfSharp.Charting.resources.dll
+C:\Users\gusvo\Desktop\FacturaPdfSharp\Factura\obj\Debug\Factura.csproj.CopyComplete

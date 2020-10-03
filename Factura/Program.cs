@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using PdfSharp;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using PdfSharp.Pdf.Content.Objects;
 using PdfSharp.Pdf.IO;
 namespace Factura
 {
@@ -28,8 +29,16 @@ namespace Factura
             // Create an empty page
             PdfPage page = document.AddPage();
 
+            page.Width = 612;
+            page.Height = 792;
+
             // Get an XGraphics object for drawing
             XGraphics gfx = XGraphics.FromPdfPage(page);
+
+
+            BeginBox(gfx, 1, "DrawLine");
+            gfx.DrawLine(XPens.DarkGreen, 0, 0, 250, 0);
+            gfx.DrawLine(XPens.Gold, 15, 7, 230, 15);
 
 
             // Create a font
@@ -37,10 +46,10 @@ namespace Factura
 
             // Draw the text
             //gfx.DrawString("Hello, World!", font, XBrushes.Black,
-                new XRect(0, 0, page.Width, page.Height),
-                XStringFormats.Center);
+            //new XRect(0, 0, page.Width, page.Height),                XStringFormats.Center);
 
-            gfx.DrawString( page.Width.ToString() + page.Height.ToString() + " (landscape)", font,
+            //612pt*792pt letter paper
+            gfx.DrawString(page.Width.ToString() + page.Height.ToString() + " (landscape)", font,
                 XBrushes.DarkRed, new XRect(0, 0, page.Width, page.Height),
                 XStringFormats.Center);
 
