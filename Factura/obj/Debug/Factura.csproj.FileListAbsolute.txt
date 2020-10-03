@@ -1,0 +1,14 @@
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.csprojAssemblyReference.cache
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.csproj.CoreCompileInputs.cache
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\Factura.exe.config
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\Factura.exe
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\Factura.pdb
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\PdfSharp.Charting.dll
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\PdfSharp.dll
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\PdfSharp.xml
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\PdfSharp.Charting.xml
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\de\PdfSharp.resources.dll
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\bin\Debug\de\PdfSharp.Charting.resources.dll
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.csproj.CopyComplete
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.exe
+C:\Users\Alejandro Sierra\source\repos\Factura\Factura\obj\Debug\Factura.pdb
