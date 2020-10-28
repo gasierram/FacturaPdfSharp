@@ -96,15 +96,22 @@ namespace Factura
             //Draw the GridDetails
             string[] gridTitles = { "Referencia", "Producto", "Tasa de impuesto", "Precio unitario", "Cant.", "Total" };
             string[] gridMovementsTitles = { "Referencia", "Producto", "Tasa de impuesto", "Precio unitario", "Cant.", "Total" };
+            string[] list1 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list2 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list3 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+
+            List<string[]> movementDetails = new List<string[]>() { list1, list2, list3  };
 
             XFont fontGrid = new XFont("Arial", 9, XFontStyle.Bold);
 
             XPen penRect = new XPen(XColors.DarkGray, 0.25);
             gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft, page.Height / 3, page.Width - (marginLeft * 2), 2 * cuadrito);
+
             gfx.DrawLine(penRect, marginLeft, page.Height / 3, marginLeft, (page.Height / 3) + 7 * cuadrito);
             gfx.DrawLine(penRect, page.Width - (page.Width - (2 * marginLeft)) / 3, page.Height / 3, page.Width - (page.Width - (2 * marginLeft)) / 3, (page.Height / 3) + 7 * cuadrito);
             gfx.DrawLine(penRect, (page.Width - (2 * marginLeft)) / 3, page.Height / 3, (page.Width - (2 * marginLeft)) / 3, (page.Height / 3) + 7 * cuadrito);
             gfx.DrawLine(penRect, page.Width - marginRight, page.Height / 3, page.Width - marginRight, (page.Height / 3) + 7 * cuadrito);
+
             gfx.DrawLine(penRect, marginLeft, (page.Height / 3) + 7 * cuadrito, page.Width - marginRight, (page.Height / 3) + 7 * cuadrito);
 
             gfx.DrawString("Valor Movimiento", fontGrid, XBrushes.Black,
@@ -114,49 +121,83 @@ namespace Factura
             gfx.DrawString("Fecha Movimiento", fontGrid, XBrushes.Black,
                             new XRect(page.Width - (page.Width - (2 * marginLeft)) / 3, page.Height / 3, 10 * cuadrito, 2 * cuadrito), XStringFormats.Center);
 
+            XFont fontMovement = new XFont("Arial", 9, XFontStyle.Regular);
+
+            double[] movementMarginLeft = { marginLeft, (page.Width - (2 * marginLeft)) / 3, page.Width - (page.Width - (2 * marginLeft)) / 3 };
+            double[] movementSpacing = { 10 * cuadrito, 20 * cuadrito, 10 * cuadrito };
+            double spacingMovement = 2 * cuadrito;
+            foreach(var item in movementDetails)
+            {
+                for (int j = 0; j < item.Length; j++)
+                {
+
+                    gfx.DrawString(item[j], fontMovement, XBrushes.Black,
+                    new XRect(movementMarginLeft[j], (page.Height / 3) + spacingMovement, movementSpacing[j], cuadrito), XStringFormats.Center);
+                }
+                spacingMovement += cuadrito;
+            }
+
+
 
             gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft, page.Height / 2, page.Width - (marginLeft * 2), 2 * cuadrito);
             gfx.DrawLine(penRect, marginLeft, page.Height / 2, marginLeft, page.Height / 2 + 17 * cuadrito);
             gfx.DrawLine(penRect, marginLeft + 50, page.Height / 2, marginLeft + 50, page.Height / 2 + 17 * cuadrito);
-            gfx.DrawLine(penRect, marginLeft + 50 + 250, page.Height / 2, marginLeft + 50 + 250, page.Height / 2 + 17 * cuadrito);
+            //gfx.DrawLine(penRect, marginLeft + 50 + 250, page.Height / 2, marginLeft + 50 + 250, page.Height / 2 + 17 * cuadrito);
             gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50, page.Height / 2, marginLeft + 50 + 250 + 50, page.Height / 2 + 17 * cuadrito);
             gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50 + 70, page.Height / 2, marginLeft + 50 + 250 + 50 + 70, page.Height / 2 + 17 * cuadrito);
             gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2, marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2 + 17 * cuadrito);
             gfx.DrawLine(penRect, page.Width - marginRight, page.Height / 2, page.Width - marginRight, page.Height / 2 + 17 * cuadrito);
+
             gfx.DrawLine(penRect, marginLeft, page.Height / 2 + 17 * cuadrito, page.Width - marginRight, page.Height / 2 + 17 * cuadrito);
 
 
             gfx.DrawString("Ref", fontGrid, XBrushes.Black,
                             new XRect(marginLeft, page.Height / 2, 50, 2 * cuadrito), XStringFormats.Center);
             gfx.DrawString("Producto", fontGrid, XBrushes.Black,
-                            new XRect(marginLeft + 50, page.Height / 2, 250, 2 * cuadrito), XStringFormats.Center);
+                            new XRect(marginLeft + 50, page.Height / 2, 300, 2 * cuadrito), XStringFormats.Center);
+            //gfx.DrawString("Precio", fontGrid, XBrushes.Black,
+            //    new XRect(marginLeft + 50 + 250, page.Height / 2, 50, cuadrito), XStringFormats.BottomCenter);
+            //gfx.DrawString("Unitario", fontGrid, XBrushes.Black,
+            //    new XRect(marginLeft + 50 + 250, (page.Height / 2) + cuadrito, 50, cuadrito), XStringFormats.BottomCenter);
             gfx.DrawString("Precio", fontGrid, XBrushes.Black,
-                new XRect(marginLeft + 50 + 250, page.Height / 2, 50, cuadrito), XStringFormats.BottomCenter);
+                            new XRect(marginLeft + 50 + 250 + 50, page.Height / 2, 70, cuadrito), XStringFormats.Center);
             gfx.DrawString("Unitario", fontGrid, XBrushes.Black,
-                new XRect(marginLeft + 50 + 250, (page.Height / 2) + cuadrito, 50, cuadrito), XStringFormats.BottomCenter);
-            gfx.DrawString("Cant", fontGrid, XBrushes.Black,
-                            new XRect(marginLeft + 50 + 250 + 50, page.Height / 2, 70, 2 * cuadrito), XStringFormats.Center);
-            gfx.DrawString("", fontGrid, XBrushes.Black,
                 new XRect(marginLeft + 50 + 250 + 50, (page.Height / 2) + cuadrito, 70, cuadrito), XStringFormats.Center);
-            gfx.DrawString("SubTotal.", fontGrid, XBrushes.Black,
+            gfx.DrawString("Cant.", fontGrid, XBrushes.Black,
                             new XRect(marginLeft + 50 + 250 + 50 + 70, page.Height / 2, 50, 2 * cuadrito), XStringFormats.Center);
-            gfx.DrawString("", fontGrid, XBrushes.Black,
-                new XRect(marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2, 50, 2 * cuadrito), XStringFormats.Center);
+            gfx.DrawString("SubTotal", fontGrid, XBrushes.Black,
+                new XRect(marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2, 55, 2 * cuadrito), XStringFormats.Center);
 
 
             XFont fontDetails = new XFont("Arial", 9, XFontStyle.Regular);
 
 
-            string[] productDetail = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
-            double[] gridmarginLeft = { marginLeft, marginLeft + 50, marginLeft + 50 + 250, marginLeft + 50 + 250 + 50, marginLeft + 50 + 250 + 50 + 70, marginLeft + 50 + 250 + 50 + 70 + 50 };
-            double[] gridSpacing = { 50, 250, 50, 70, 50, 50 };
-            string[] totals = { "$580.000", "Envio gratis", "$0", "$0", "$680", "$1.200.000" };
-            double spacingProducts = 2 * cuadrito;
-            for (int i = 0; i < productDetail.Length; i++)
-            {
+            string[] product1 = { "0001", "COCA COLA ZERO", "2680", "1", "50.000" };
+            string[] product2 = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
+            string[] product3 = { "0001", "COCA COLA ZERO", "2680", "1", "1.000.000" };
 
-                gfx.DrawString(productDetail[i], fontDetails, XBrushes.Black,
-                new XRect(gridmarginLeft[i], (page.Height / 2) + spacingProducts, gridSpacing[i], cuadrito), XStringFormats.Center);
+            string[] product4 = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
+            string[] product5 = { "0001", "COCA COLA ZERO", "2680", "1", "26.850" };
+            string[] product6 = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
+            string[] product7 = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
+            string[] product8 = { "0001", "COCA COLA ZERO", "2680", "1", "122.680" };
+            string[] product9 = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
+            string[] product10 = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
+            string[] product11 = { "0001", "COCA COLA ZERO", "2680", "1", "2680" };
+            string[] product12 = { "0001", "COCA COLA ZERO", "2680", "1", "2.680.899" };
+            double[] gridmarginLeft = { marginLeft, marginLeft + 50, marginLeft + 50 + 250 + 50, marginLeft + 50 + 250 + 50+70, marginLeft + 50 + 250 + 50 + 70 + 50 };
+            double[] gridSpacing = { 50, 300, 70, 50, 55 };
+            string[] totals = { "$580.000", "Envio gratis", "$0", "$0", "$680", "$1.200.000" };
+            List<string[]>  products = new List<string[]>() { product1, product2, product3, product4, product5, product6, product7, product8, product9, product10, product11, product12 };
+            double spacingProducts = 2 * cuadrito;
+            foreach(var item in products)
+            {
+                for (int i =0; i < item.Length; i++)
+                {
+                    gfx.DrawString(item[i], fontDetails, XBrushes.Black,
+                    new XRect(gridmarginLeft[i], (page.Height / 2) + spacingProducts, gridSpacing[i], cuadrito), XStringFormats.Center);
+                }
+                spacingProducts += cuadrito;
             }
 
             gfx.DrawRectangle(penRect, XBrushes.White, marginLeft , page.Height / 2 + 18 * cuadrito, 24 * cuadrito, 8 * cuadrito);
