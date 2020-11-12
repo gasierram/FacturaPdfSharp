@@ -24,19 +24,23 @@ namespace Factura
             document.Info.Subject = "";
             document.Info.Keywords = "Other Words";
 
-            // Create an empty page
-            PdfPage page = document.AddPage();
-            page.Width = 612;
-            page.Height = 792;
             double marginLeft = 42.52;
             double marginRight = 42.52;
             double marginTop = 42.52;
             double cuadrito = 14.173228346457;
 
+            LayoutHelper helper = new LayoutHelper(document, marginTop, XUnit.FromCentimeter(29.7 - 2.5));
+
+            // Create an empty page
+            PdfPage page = document.AddPage();
+            page.Width = 612;
+            page.Height = 792;
+            
+
             // Get an XGraphics object for drawing
             XGraphics gfx = XGraphics.FromPdfPage(page);
             string logoPath = @"C:\Users\gusvo\Desktop\logo.jpg";
-            logoPath = @"C:\Users\Alejandro Sierra\Desktop\prueba_logook.png";
+            //logoPath = @"C:\Users\Alejandro Sierra\Desktop\prueba_logook.png";
 
 
             XImage image = XImage.FromFile(logoPath);
@@ -99,20 +103,24 @@ namespace Factura
             string[] list1 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
             string[] list2 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
             string[] list3 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list4 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list5 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list6 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list7 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list8 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list9 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            string[] list10 = new string[3] { "$20.000", "Pago parcial", "26/10/2020" };
+            
 
-            List<string[]> movementDetails = new List<string[]>() { list1, list2, list3  };
+            List<string[]> movementDetails = new List<string[]>() { list1, list2, list3, list4, list5, list6, list7, list8
+            , list9, list10, list1, list10, list3, list3, list3, list3, list3, list3, list3, list3, list3, list3, list3};
 
             XFont fontGrid = new XFont("Arial", 9, XFontStyle.Bold);
 
             XPen penRect = new XPen(XColors.DarkGray, 0.25);
             gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft, page.Height / 3, page.Width - (marginLeft * 2), 2 * cuadrito);
 
-            gfx.DrawLine(penRect, marginLeft, page.Height / 3, marginLeft, (page.Height / 3) + 7 * cuadrito);
-            gfx.DrawLine(penRect, page.Width - (page.Width - (2 * marginLeft)) / 3, page.Height / 3, page.Width - (page.Width - (2 * marginLeft)) / 3, (page.Height / 3) + 7 * cuadrito);
-            gfx.DrawLine(penRect, (page.Width - (2 * marginLeft)) / 3, page.Height / 3, (page.Width - (2 * marginLeft)) / 3, (page.Height / 3) + 7 * cuadrito);
-            gfx.DrawLine(penRect, page.Width - marginRight, page.Height / 3, page.Width - marginRight, (page.Height / 3) + 7 * cuadrito);
 
-            gfx.DrawLine(penRect, marginLeft, (page.Height / 3) + 7 * cuadrito, page.Width - marginRight, (page.Height / 3) + 7 * cuadrito);
 
             gfx.DrawString("Valor Movimiento", fontGrid, XBrushes.Black,
                             new XRect(marginLeft, page.Height / 3, 10 * cuadrito, 2 * cuadrito), XStringFormats.Center);
@@ -125,48 +133,46 @@ namespace Factura
 
             double[] movementMarginLeft = { marginLeft, (page.Width - (2 * marginLeft)) / 3, page.Width - (page.Width - (2 * marginLeft)) / 3 };
             double[] movementSpacing = { 10 * cuadrito, 20 * cuadrito, 10 * cuadrito };
-            double spacingMovement = 2 * cuadrito;
+            double spacingMovement = 2 * cuadrito + (page.Height / 3) ;
             foreach(var item in movementDetails)
             {
                 for (int j = 0; j < item.Length; j++)
                 {
-
-                    gfx.DrawString(item[j], fontMovement, XBrushes.Black,
-                    new XRect(movementMarginLeft[j], (page.Height / 3) + spacingMovement, movementSpacing[j], cuadrito), XStringFormats.Center);
+                    XUnit top = helper.GetLinePosition(cuadrito, cuadrito);
+                    if (top > spacingMovement)
+                    {
+                        top = spacingMovement;
+                    }
+                    helper.Gfx.DrawString(item[j], fontMovement, XBrushes.Black,
+                    new XRect(movementMarginLeft[j], spacingMovement, movementSpacing[j], spacingMovement), XStringFormats.Center);
                 }
+
                 spacingMovement += cuadrito;
             }
 
+            gfx.DrawLine(penRect, marginLeft, page.Height / 3, marginLeft, spacingMovement);
+            gfx.DrawLine(penRect, page.Width - (page.Width - (2 * marginLeft)) / 3, page.Height / 3, page.Width - (page.Width - (2 * marginLeft)) / 3, spacingMovement);
+            gfx.DrawLine(penRect, (page.Width - (2 * marginLeft)) / 3, page.Height / 3, (page.Width - (2 * marginLeft)) / 3, spacingMovement);
+            gfx.DrawLine(penRect, page.Width - marginRight, page.Height / 3, page.Width - marginRight, spacingMovement);
+            gfx.DrawLine(penRect, marginLeft, spacingMovement, page.Width - marginRight, spacingMovement);
+            spacingMovement += cuadrito;
 
 
-            gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft, page.Height / 2, page.Width - (marginLeft * 2), 2 * cuadrito);
-            gfx.DrawLine(penRect, marginLeft, page.Height / 2, marginLeft, page.Height / 2 + 17 * cuadrito);
-            gfx.DrawLine(penRect, marginLeft + 50, page.Height / 2, marginLeft + 50, page.Height / 2 + 17 * cuadrito);
-            //gfx.DrawLine(penRect, marginLeft + 50 + 250, page.Height / 2, marginLeft + 50 + 250, page.Height / 2 + 17 * cuadrito);
-            gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50, page.Height / 2, marginLeft + 50 + 250 + 50, page.Height / 2 + 17 * cuadrito);
-            gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50 + 70, page.Height / 2, marginLeft + 50 + 250 + 50 + 70, page.Height / 2 + 17 * cuadrito);
-            gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2, marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2 + 17 * cuadrito);
-            gfx.DrawLine(penRect, page.Width - marginRight, page.Height / 2, page.Width - marginRight, page.Height / 2 + 17 * cuadrito);
-
-            gfx.DrawLine(penRect, marginLeft, page.Height / 2 + 17 * cuadrito, page.Width - marginRight, page.Height / 2 + 17 * cuadrito);
-
+            gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft, spacingMovement, page.Width - (marginLeft * 2), 2 * cuadrito);
+            
 
             gfx.DrawString("Ref", fontGrid, XBrushes.Black,
-                            new XRect(marginLeft, page.Height / 2, 50, 2 * cuadrito), XStringFormats.Center);
+                            new XRect(marginLeft, spacingMovement, 50, 2 * cuadrito), XStringFormats.Center);
             gfx.DrawString("Producto", fontGrid, XBrushes.Black,
-                            new XRect(marginLeft + 50, page.Height / 2, 300, 2 * cuadrito), XStringFormats.Center);
-            //gfx.DrawString("Precio", fontGrid, XBrushes.Black,
-            //    new XRect(marginLeft + 50 + 250, page.Height / 2, 50, cuadrito), XStringFormats.BottomCenter);
-            //gfx.DrawString("Unitario", fontGrid, XBrushes.Black,
-            //    new XRect(marginLeft + 50 + 250, (page.Height / 2) + cuadrito, 50, cuadrito), XStringFormats.BottomCenter);
+                            new XRect(marginLeft + 50, spacingMovement, 300, 2 * cuadrito), XStringFormats.Center);
             gfx.DrawString("Precio", fontGrid, XBrushes.Black,
-                            new XRect(marginLeft + 50 + 250 + 50, page.Height / 2, 70, cuadrito), XStringFormats.Center);
+                            new XRect(marginLeft + 50 + 250 + 50, spacingMovement, 70, cuadrito), XStringFormats.Center);
             gfx.DrawString("Unitario", fontGrid, XBrushes.Black,
-                new XRect(marginLeft + 50 + 250 + 50, (page.Height / 2) + cuadrito, 70, cuadrito), XStringFormats.Center);
+                new XRect(marginLeft + 50 + 250 + 50, spacingMovement + cuadrito, 70, cuadrito), XStringFormats.Center);
             gfx.DrawString("Cant.", fontGrid, XBrushes.Black,
-                            new XRect(marginLeft + 50 + 250 + 50 + 70, page.Height / 2, 50, 2 * cuadrito), XStringFormats.Center);
+                            new XRect(marginLeft + 50 + 250 + 50 + 70, spacingMovement, 50, 2 * cuadrito), XStringFormats.Center);
             gfx.DrawString("SubTotal", fontGrid, XBrushes.Black,
-                new XRect(marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2, 55, 2 * cuadrito), XStringFormats.Center);
+                new XRect(marginLeft + 50 + 250 + 50 + 70 + 50, spacingMovement, 55, 2 * cuadrito), XStringFormats.Center);
 
 
             XFont fontDetails = new XFont("Arial", 9, XFontStyle.Regular);
@@ -189,16 +195,28 @@ namespace Factura
             double[] gridSpacing = { 50, 300, 70, 50, 55 };
             string[] totals = { "$580.000", "Envio gratis", "$0", "$0", "$680", "$1.200.000" };
             List<string[]>  products = new List<string[]>() { product1, product2, product3, product4, product5, product6, product7, product8, product9, product10, product11, product12 };
-            double spacingProducts = 2 * cuadrito;
+            double spacingProducts = 2 * cuadrito + spacingMovement;
             foreach(var item in products)
             {
                 for (int i =0; i < item.Length; i++)
                 {
-                    gfx.DrawString(item[i], fontDetails, XBrushes.Black,
-                    new XRect(gridmarginLeft[i], (page.Height / 2) + spacingProducts, gridSpacing[i], cuadrito), XStringFormats.Center);
+                    helper.Gfx.DrawString(item[i], fontDetails, XBrushes.Black,
+                    new XRect(gridmarginLeft[i], spacingProducts, gridSpacing[i], cuadrito), XStringFormats.Center);
                 }
                 spacingProducts += cuadrito;
             }
+
+            gfx.DrawLine(penRect, marginLeft, spacingMovement, marginLeft, page.Height / 2 + 17 * cuadrito);
+            gfx.DrawLine(penRect, marginLeft + 50, spacingMovement, marginLeft + 50, page.Height / 2 + 17 * cuadrito);
+            //gfx.DrawLine(penRect, marginLeft + 50 + 250, page.Height / 2, marginLeft + 50 + 250, page.Height / 2 + 17 * cuadrito);
+            gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50, spacingMovement, marginLeft + 50 + 250 + 50, page.Height / 2 + 17 * cuadrito);
+            gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50 + 70, spacingMovement, marginLeft + 50 + 250 + 50 + 70, page.Height / 2 + 17 * cuadrito);
+            gfx.DrawLine(penRect, marginLeft + 50 + 250 + 50 + 70 + 50, spacingMovement, marginLeft + 50 + 250 + 50 + 70 + 50, page.Height / 2 + 17 * cuadrito);
+
+            gfx.DrawLine(penRect, page.Width - marginRight, page.Height / 2, page.Width - marginRight, page.Height / 2 + 17 * cuadrito);
+            gfx.DrawLine(penRect, marginLeft, page.Height / 2 + 17 * cuadrito, page.Width - marginRight, page.Height / 2 + 17 * cuadrito);
+
+
 
             gfx.DrawRectangle(penRect, XBrushes.White, marginLeft , page.Height / 2 + 18 * cuadrito, 24 * cuadrito, 8 * cuadrito);
             gfx.DrawLine(penRect, marginLeft, page.Height / 2 + 19 * cuadrito, marginLeft+ 24 * cuadrito, page.Height / 2 + 19 * cuadrito);
@@ -269,4 +287,5 @@ namespace Factura
             Process.Start(fileName);
         }
     }
+
 }
