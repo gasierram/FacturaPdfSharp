@@ -46,7 +46,9 @@ namespace Factura
         void CreatePage()
         {
             Page = _document.AddPage();
+
             Page.Size = PageSize.A4;
+            Page.Width = 612;
             Gfx = XGraphics.FromPdfPage(Page);
             _currentPosition = _topPosition;
         }
