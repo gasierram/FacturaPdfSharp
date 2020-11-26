@@ -133,25 +133,13 @@ namespace Factura
 
                         spacingMovement = top;
 
-
-                        helper.Gfx.DrawString(item[j], fontMovement, XBrushes.Black,
-                            new XRect(movementMarginLeft[j], spacingMovement, movementSpacing[j], cuadrito), XStringFormats.Center);
-
-                        helper.Gfx.DrawLine(penRect, movementMarginLeft[j], spacingMovement, movementMarginLeft[j], spacingMovement + cuadrito);
-                        helper.Gfx.DrawLine(penRect, helper.Page.Width - marginRight, spacingMovement, helper.Page.Width - marginRight, spacingMovement+cuadrito);
-                        helper.Gfx.DrawLine(penRect, marginLeft, spacingMovement, helper.Page.Width - marginRight, spacingMovement);
                     }
-                    else
-                    {
-
-
-                        helper.Gfx.DrawString(item[j], fontMovement, XBrushes.Black,
+                    helper.Gfx.DrawString(item[j], fontMovement, XBrushes.Black,
                         new XRect(movementMarginLeft[j], spacingMovement, movementSpacing[j], cuadrito), XStringFormats.Center);
-
-                        helper.Gfx.DrawLine(penRect, movementMarginLeft[j], spacingMovement, movementMarginLeft[j], spacingMovement+cuadrito);
-                        helper.Gfx.DrawLine(penRect, helper.Page.Width - marginRight, spacingMovement, helper.Page.Width - marginRight, spacingMovement+cuadrito);
-                        helper.Gfx.DrawLine(penRect, marginLeft, spacingMovement, helper.Page.Width - marginRight, spacingMovement);
-                    }
+                    helper.Gfx.DrawLine(penRect, movementMarginLeft[j], spacingMovement, movementMarginLeft[j], spacingMovement + cuadrito);
+                    helper.Gfx.DrawLine(penRect, helper.Page.Width - marginRight, spacingMovement, helper.Page.Width - marginRight, spacingMovement+cuadrito);
+                    helper.Gfx.DrawLine(penRect, marginLeft, spacingMovement, helper.Page.Width - marginRight, spacingMovement);
+                    
                 }
                 spacingMovement += cuadrito;
                 helper.Gfx.DrawLine(penRect, marginLeft, spacingMovement, helper.Page.Width - marginRight, spacingMovement);
@@ -214,22 +202,15 @@ namespace Factura
                     {
                         XUnit top = helper.GetLinePosition(XUnit.FromCentimeter(29.7 - 2.5));
                         spacingProducts = top;
-
-                        helper.Gfx.DrawString(item[i], fontDetails, XBrushes.Black,
-                            new XRect(gridmarginLeft[i], spacingProducts, gridSpacing[i], cuadrito), XStringFormats.Center);
-                        helper.Gfx.DrawLine(penRect, gridmarginLeft[i], spacingProducts, gridmarginLeft[i], spacingProducts + cuadrito);
-                        helper.Gfx.DrawLine(penRect, helper.Page.Width - marginRight, spacingProducts, helper.Page.Width - marginRight, spacingProducts + cuadrito);
-                        helper.Gfx.DrawLine(penRect, helper.Page.Width - marginRight, spacingProducts, helper.Page.Width - marginRight, spacingProducts);
-
                     }
                     else
                     {
-                        helper.Gfx.DrawString(item[i], fontDetails, XBrushes.Black,
-                            new XRect(gridmarginLeft[i], spacingProducts, gridSpacing[i], cuadrito), XStringFormats.Center);
-                        helper.Gfx.DrawLine(penRect, gridmarginLeft[i], spacingProducts, gridmarginLeft[i], spacingProducts + cuadrito);
-                        helper.Gfx.DrawLine(penRect, helper.Page.Width - marginRight, spacingProducts, helper.Page.Width - marginRight, spacingProducts + cuadrito);
                         helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, helper.Page.Width - marginRight, spacingProducts);
                     }
+                    helper.Gfx.DrawString(item[i], fontDetails, XBrushes.Black,
+                           new XRect(gridmarginLeft[i], spacingProducts, gridSpacing[i], cuadrito), XStringFormats.Center);
+                    helper.Gfx.DrawLine(penRect, gridmarginLeft[i], spacingProducts, gridmarginLeft[i], spacingProducts + cuadrito);
+                    helper.Gfx.DrawLine(penRect, helper.Page.Width - marginRight, spacingProducts, helper.Page.Width - marginRight, spacingProducts + cuadrito);
                 }
                 spacingProducts += cuadrito;
                 helper.Gfx.DrawLine(penRect, marginRight, spacingProducts, helper.Page.Width - marginRight, spacingProducts);
@@ -247,62 +228,33 @@ namespace Factura
             {
                 XUnit top = helper.GetLinePosition(XUnit.FromCentimeter(29.7 - 2.5));
                 spacingProducts = totalSpacing = top;
-
-                helper.Gfx.DrawRectangle(penRect, XBrushes.White, marginLeft, totalSpacing, 24 * cuadrito, 8 * cuadrito);
-                helper.Gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft + 50 + 250 + 50, totalSpacing, 9 * cuadrito, 8 * cuadrito);
-                helper.Gfx.DrawRectangle(penRect, XBrushes.White, marginLeft + 50 + 250 + 50 + 70 + 50, totalSpacing, 4 * cuadrito, 8 * cuadrito);
-                for (int i = 0; i < footerFields.Length; i++)
-                {
-                    helper.Gfx.DrawString(footerFields[i], fontGrid, XBrushes.Black,
-                        new XRect(marginLeft + cuadrito, spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterLeft);
-                    helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
-
-                    helper.Gfx.DrawString(footerDetails[i], fontDetails, XBrushes.Black,
-                        new XRect(footerFieldsSpacing[1], spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterRight);
-                    helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
-                    spacingProducts += cuadrito; 
-                }
-                for (int i = 0; i < totalFields.Length; i++)
-                {
-                    helper.Gfx.DrawString(totalFields[i], fontGrid, XBrushes.Black,
-                        new XRect(totalFieldsSpacing[0], totals.Length == i + 1 ? totalSpacing + cuadrito : totalSpacing, 9 * cuadrito, cuadrito), XStringFormats.Center);
-
-                    helper.Gfx.DrawString(totals[i], totals.Length == i + 1 ? fontGrid : fontDetails, XBrushes.Black,
-                        new XRect(marginLeft + 50 + 250 + 50 + 70 + 50, totals.Length == i + 1 ? totalSpacing + cuadrito : totalSpacing, 4 * cuadrito, cuadrito), XStringFormats.Center);
-
-                   
-                    totalSpacing += cuadrito;
-                }
             }
             else
             {
                 totalSpacing = spacingProducts += cuadrito;
-
-                helper.Gfx.DrawRectangle(penRect, XBrushes.White, marginLeft, totalSpacing, 24 * cuadrito, 8 * cuadrito);
-                helper.Gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft + 50 + 250 + 50, totalSpacing, 9 * cuadrito, 8 * cuadrito);
-                helper.Gfx.DrawRectangle(penRect, XBrushes.White, marginLeft + 50 + 250 + 50 + 70 + 50, totalSpacing, 4 * cuadrito, 8 * cuadrito);
-                for (int i = 0; i < footerFields.Length; i++)
-                {
-                    helper.Gfx.DrawString(footerFields[i], fontGrid, XBrushes.Black,
-                        new XRect(marginLeft + cuadrito, spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterLeft);
-                    helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
-
-                    helper.Gfx.DrawString(footerDetails[i], fontDetails, XBrushes.Black,
-                        new XRect(footerFieldsSpacing[1], spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterRight);
-                    helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
-                    spacingProducts += cuadrito;
-
-                }
-                for (int i = 0; i < totalFields.Length; i++)
-                {
-                    helper.Gfx.DrawString(totalFields[i], fontGrid, XBrushes.Black,
-                        new XRect(totalFieldsSpacing[0], totals.Length == i + 1 ? totalSpacing + cuadrito : totalSpacing, 9 * cuadrito, cuadrito), XStringFormats.Center);
-                    helper.Gfx.DrawString(totals[i], totals.Length == i + 1 ? fontGrid : fontDetails, XBrushes.Black,
-                    new XRect(marginLeft + 50 + 250 + 50 + 70 + 50, totals.Length == i + 1 ? totalSpacing + cuadrito : totalSpacing, 4 * cuadrito, cuadrito), XStringFormats.Center);
-
-                    totalSpacing += cuadrito;
-                }
             }
+            helper.Gfx.DrawRectangle(penRect, XBrushes.White, marginLeft, totalSpacing, 24 * cuadrito, 8 * cuadrito);
+            helper.Gfx.DrawRectangle(penRect, XBrushes.WhiteSmoke, marginLeft + 50 + 250 + 50, totalSpacing, 9 * cuadrito, 8 * cuadrito);
+            helper.Gfx.DrawRectangle(penRect, XBrushes.White, marginLeft + 50 + 250 + 50 + 70 + 50, totalSpacing, 4 * cuadrito, 8 * cuadrito);
+            for (int i = 0; i < footerFields.Length; i++)
+            {
+                helper.Gfx.DrawString(footerFields[i], fontGrid, XBrushes.Black,
+                    new XRect(marginLeft + cuadrito, spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterLeft);
+                helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
+                helper.Gfx.DrawString(footerDetails[i], fontDetails, XBrushes.Black,
+                    new XRect(footerFieldsSpacing[1], spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterRight);
+                helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
+                spacingProducts += cuadrito; 
+            }
+            for (int i = 0; i < totalFields.Length; i++)
+            {
+                helper.Gfx.DrawString(totalFields[i], fontGrid, XBrushes.Black,
+                    new XRect(totalFieldsSpacing[0], totals.Length == i + 1 ? totalSpacing + cuadrito : totalSpacing, 9 * cuadrito, cuadrito), XStringFormats.Center);
+                helper.Gfx.DrawString(totals[i], totals.Length == i + 1 ? fontGrid : fontDetails, XBrushes.Black,
+                    new XRect(marginLeft + 50 + 250 + 50 + 70 + 50, totals.Length == i + 1 ? totalSpacing + cuadrito : totalSpacing, 4 * cuadrito, cuadrito), XStringFormats.Center);
+                totalSpacing += cuadrito;
+            }
+            
 
             //612pt*792pt letter paper is the same to A4
             Debug.WriteLine("seconds= " + (DateTime.Now - now).TotalSeconds.ToString());
