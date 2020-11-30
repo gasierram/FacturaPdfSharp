@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PdfSharp;
 using PdfSharp.Drawing;
+using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Content.Objects;
 using PdfSharp.Pdf.IO;
@@ -215,10 +216,11 @@ namespace Factura
                 spacingProducts += cuadrito;
                 helper.Gfx.DrawLine(penRect, marginRight, spacingProducts, helper.Page.Width - marginRight, spacingProducts);
             }
-            Debug.WriteLine("vale fuera " + spacingProducts + ", " + helper.Page.Height / 2 + 17 * cuadrito);
+
+            XTextFormatter tf = new XTextFormatter(helper.Gfx);
 
             string[] footerFields = { "Pago Transacción", "Pago Efectivo", "Detalles" };
-            string[] footerDetails= { "$1.000", "$1.000", "Cliente Nuevo" };
+            string[] footerDetails= { "$1.000", "$1.000", "Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo Cliente Nuevo " };
             double[] footerFieldsSpacing = { 8 * cuadrito, marginLeft + 12 * cuadrito };
             double totalSpacing = spacingProducts;
             string[] totalFields = { "Subtotal", "Gastos de envío", "Impuesto1", "Impuesto2", "Descuento", "TOTAL" };
@@ -240,10 +242,22 @@ namespace Factura
             {
                 helper.Gfx.DrawString(footerFields[i], fontGrid, XBrushes.Black,
                     new XRect(marginLeft + cuadrito, spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterLeft);
+
                 helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
-                helper.Gfx.DrawString(footerDetails[i], fontDetails, XBrushes.Black,
+                
+                if(footerDetails.Length - 1 == i)
+                {
+                    tf.DrawString(footerDetails[i], fontDetails, XBrushes.Black,
+                    new XRect(marginLeft+cuadrito, spacingProducts + cuadrito, 22 * cuadrito, 5 * cuadrito), XStringFormats.TopLeft);
+                }
+                else
+                {
+                    helper.Gfx.DrawString(footerDetails[i], fontDetails, XBrushes.Black,
                     new XRect(footerFieldsSpacing[1], spacingProducts, marginLeft + footerFieldsSpacing[0], cuadrito), XStringFormats.CenterRight);
+                }
+
                 helper.Gfx.DrawLine(penRect, marginLeft, spacingProducts, marginLeft + 24 * cuadrito, spacingProducts);
+
                 spacingProducts += cuadrito; 
             }
             for (int i = 0; i < totalFields.Length; i++)
